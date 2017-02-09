@@ -1,0 +1,105 @@
+*{
+	padding:0;
+	margin:0;
+}
+body{
+    font-family: Microsoft YaHei;
+    font-size:22px;
+}
+a{
+	text-decoration: none;
+	color:#ccc;
+	font-size:15px;
+}
+li{
+	list-style:none;
+}
+header{
+	color:white;
+	font-size:15px;
+    width:100%;
+    height:50px;
+    background-color:#339999;
+    text-align: center;
+}
+#main{
+    width:500px;
+	margin:0 auto;
+}
+#add-task-input{
+	font-size: 22px;
+	outline:medium;
+}
+#tasks{
+	width:100%;
+	border:1px solid #339999;
+	margin-top:2px;
+}
+#tasks li{
+	height:50px;
+	color:#339999;
+	line-height: 50px;
+	padding-left:40px;
+	position:relative;
+	border-bottom:1px solid #ccc;
+}
+#tasks li:hover{
+	background-color: #F0F8FF;
+}
+#tasks li a{
+	font-size:15px;
+}
+#tasks li a.checked{
+	position:absolute;
+    top:2px;
+	left:10px;
+}
+
+#tasks li.checked::before{
+	content: '';
+    position: absolute;
+    border-color: #339999;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 15px;
+    left: 10px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+#task-control{
+	color:#ccc;
+	height:25px;
+	font-size:15px;
+	margin-top:2px;
+    padding:6px 0 0 20px;
+    border-bottom:1px solid #ccc;
+    border-top:0;
+}
+#task-control a:hover{
+	color:#339999;
+}
+#info{
+	float:left;
+	padding-right:60px;
+}
+#sort-task li{
+	float:left;
+	margin:0 10px;
+}
+
+.edit-task{
+   right:60px; 
+}
+.del-task{
+	right:20px;
+}
+.del-task,.edit-task{
+	position:absolute;
+	cursor:pointer;
+	display:inline-block;
+}
+.del-task:hover,.edit-task:hover{
+	color:red;
+}
+
