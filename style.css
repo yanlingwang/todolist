@@ -103,3 +103,16 @@ header{
 	color:red;
 }
 
+#tasks li input{
+	width:459px;
+	height:49px;
+	font-size:22px;
+	font-family: Microsoft YaHei;
+	color:#339999;
+	outline:medium;
+	border:none;
+	border:1px solid #339999;
+	position:absolute;
+	top:0px;
+	left:40px;
+}
