@@ -1,7 +1,7 @@
-
+var taskArr=getTask();
+console.log(taskArr);
 // display tasks
 showTasks();
-
 
 //keydown event
 document.getElementById("add-task-input").onkeydown=function(event){
@@ -48,10 +48,9 @@ function addTask(taskObj){
 
 //delete a task from to-do list
 function deleteTask(e){
-  var delTask=document.getElementsByClassName('del-task');
   //get the task id of each task
   var id=e.parentNode.getAttribute("taskId");
-	var taskArr=getTask(); 	 
+	var taskArr=getTask(); 	
   	for(var i=0;i<taskArr.length;i++){ 
   	  if(id==taskArr[i].id){     
   	    taskArr.splice(i,1);	
@@ -66,8 +65,6 @@ function deleteTask(e){
 
 //edit the content of a task when it is double clicked
 function editTask(e){
-  console.log("a");
-  console.log(e.innerHTML);
   var previousTaskContent=e.innerHTML;
   var editInputObj=document.createElement('input');
   editInputObj.type="text";
@@ -85,14 +82,14 @@ function editTask(e){
 
 //show all tasks on to-do list
 function showTasks(){
-  var taskList=document.getElementById('task-list')
+  var taskList=document.getElementById('task-list');
   var taskUl="<ul>"    
   var taskArr=getTask();
-  var liContent;          
+  var liContent;         
   //add all tasks to task list               
   for(var i=0;i<taskArr.length;i++){
     liContent='<li '+'taskId="' + taskArr[i].id + '" '+'class="task"'+'>'
-    +'<a class="checked">O</a>'
+    +'<a class="check" onclick="clickCheckbox(this);">O</a>'
     +'<span class="task-content" ondblclick="editTask(this);">'+taskArr[i].content+'</span>'
     +'<a class="del-task" onclick="deleteTask(this);">'+'del'+'</a>'
     +'</li>';  
@@ -100,4 +97,67 @@ function showTasks(){
   }
     taskUl+="</ul>";
     taskList.innerHTML=taskUl;
+}
+
+
+//when the checkbox of a task is clicked
+function clickCheckbox(e){
+	var taskId=e.parentNode.getAttribute("taskId");
+    var taskArr=getTask();
+	for(var i=0;i<taskArr.length;i++){
+		if(taskArr[i].id == taskId){
+			taskArr[i].finish=!taskArr[i].finish;	
+			console.log(taskArr[i].finish);
+			if(taskArr[i].finish==true){
+			    console.log(e.parentNode);			
+				e.parentNode.classList.add("completed");
+			}else{
+				console.log(e.parentNode);
+				e.parentNode.classList.add("uncompleted");
+			}
+		}		 	   
+	    updateTask(taskArr);
+        showTasks();  
+    }
+}
+
+
+
+var taskCount=document.getElementById('task-count');
+var taskArr=getTask();
+taskCount.innerHTML=taskArr.length;
+while(addTask){
+	taskCount++;
+}
+
+
+
+
+
+//show active tasks
+// var activeTasks=document.getElementById("active-tasks");
+// activeTasks.onclick=function(){
+//   var taskArr=getTask();
+//   var newArr=[];
+//   for(var i=0;i<taskArr.length;i++){
+//     if(taskArr[i].finish=false){
+//       newArr.push(taskArr[i]);
+//     }
+//   }
+
+// }
+
+
+
+//clear all completed tasks
+var clearCompleted=document.getElementById("clear-completed");
+clearCompleted.onclick=function(){
+	var taskArr=getTask();
+	for(var i=0;i<taskArr.length;i++){
+		while(taskArr[i].finish == true){
+			taskArr.splice(i,1);
+		}
+	}
+    updateTask(taskArr);
+    showTasks();
 }

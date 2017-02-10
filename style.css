@@ -10,6 +10,7 @@ a{
 	text-decoration: none;
 	color:#ccc;
 	font-size:15px;
+	cursor:pointer;
 }
 li{
 	list-style:none;
@@ -49,13 +50,22 @@ header{
 #tasks li a{
 	font-size:15px;
 }
-#tasks li a.checked{
+#tasks li a.check{
 	position:absolute;
-    top:2px;
 	left:10px;
+	cursor:pointer;
+	color:#339999;
 }
-
-#tasks li.checked::before{
+#tasks li.completed :first-child{
+    color:#ccc;
+}
+#tasks li.completed span{
+	color:#ccc;
+}
+.completed{
+	background-color: pink;
+}
+/*#tasks li.check::before{
 	content: '';
     position: absolute;
     border-color: #339999;
@@ -66,7 +76,7 @@ header{
     transform: rotate(45deg);
     height: 15px;
     width: 7px;
-}
+}*/
 #task-control{
 	color:#ccc;
 	height:25px;
