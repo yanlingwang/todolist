@@ -54,16 +54,16 @@ header{
 	position:absolute;
 	left:10px;
 	cursor:pointer;
-	color:#339999;
+	/*color:#339999;*/
 }
-#tasks li.completed :first-child{
-    color:#ccc;
-}
-#tasks li.completed span{
+#completed-list li .check{
 	color:#ccc;
 }
-.completed{
-	background-color: pink;
+#completed-list span{
+	color:#ccc;
+}
+#active-list li .check{
+	color:#339999;
 }
 /*#tasks li.check::before{
 	content: '';
