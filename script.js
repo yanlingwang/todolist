@@ -1,6 +1,7 @@
 // display tasks
 showTasks();
 var taskArr=getTask();
+console.log(taskArr);
 
 //keydown event
 document.getElementById("add-task-input").onkeydown=function(event){
@@ -31,33 +32,33 @@ function updateTask(tasks){
 	localStorage.task=JSON.stringify(tasks);
 }
 
-//add new task to to-do list
+//add a new task 
 function addTask(taskObj){
-  //set the id of task object
-  if (taskArr.length === 0) {
-    taskObj.id = 0;
-  } else {
-    taskObj.id = taskArr[taskArr.length - 1].id + 1;
+  if(taskArr.length === 0){
+    taskObj.id=0;
+  }else{
+    taskObj.id=taskArr[taskArr.length-1].id+1;
   }
   taskArr.push(taskObj);
   updateTask(taskArr);
 }
 
-//delete a task from to-do list
+//modify: bind() id
+//delete a task
 function deleteTask(e){
   //get the task id of each task
   var id=e.parentNode.getAttribute("taskId");
-  	for(var i=0;i<taskArr.length;i++){ 
-  	  if(id==taskArr[i].id){     
-  	    taskArr.splice(i,1);	
-  	    break;   
-  	  }
-    }
-    updateTask(taskArr);
-    showTasks();
+	for(var i=0;i<taskArr.length;i++){ 
+	  if(id == taskArr[i].id){     
+	    taskArr.splice(i,1);	
+	    break;   
+	  }
+  }
+  updateTask(taskArr);
+  showTasks();
 }
 
-//edit the content of a task when it is double clicked
+//edit a task when it is double clicked
 function editTask(e){
   var previousTaskContent=e.innerHTML;
   var editInputObj=document.createElement('input');
@@ -69,7 +70,7 @@ function editTask(e){
   }
   e.appendChild(editInputObj);
   editInputObj.focus();
-  var id=e.parentNode.getAttribute("taskid");
+  var id=e.parentNode.getAttribute("taskId");
   for(var i=0;i<taskArr.length;i++){
     if(taskArr[i].id == id){
       taskArr[i].content=editInputObj.value;
@@ -79,8 +80,10 @@ function editTask(e){
   updateTask(taskArr);  
 }
 
-//when the checkbox of a task is clicked,change the state of item, depending on whether the item has completed or not
+//change the state of item, depending on whether the item has completed or not
+//function clickCheckbox(e,id)
 function clickCheckbox(e){
+  // var taskId = id; 
   var taskId=e.parentNode.getAttribute("taskId");
   for(var i=0;i<taskArr.length;i++){
 	if(taskArr[i].id == taskId){
@@ -93,15 +96,16 @@ function clickCheckbox(e){
 
 //onclick event
 var obj={
-  on:function(element,handler){
+  on:function(element,type,handler){
     if(element.addEventListener){
-      element.addEventListener('click',handler,false);
+      element.addEventListener(type,handler,false);
     }else{
-      element.attachEvent('onclick',handler);
+      element.attachEvent('on'+type,handler);
     }
   }
 }
 
+//modify:filter()
 //show filter task lists
 function showFilterTaskList(){
   var allTasks=document.getElementById('all-tasks');
@@ -110,26 +114,34 @@ function showFilterTaskList(){
   var activeList=document.getElementById("active-list");
   var completedList=document.getElementById("completed-list");
   //show all tasks
-  obj.on(allTasks,function(){
+  obj.on(allTasks,'click',function(){
     showTasks();
   })
   //show active tasks
-  obj.on(activeTasks,function(){
+  obj.on(activeTasks,'click',function(){
     activeList.style.display="block";
     completedList.style.display="none";
   })
   //show completed tasks
-  obj.on(completedTasks,function(){
+  obj.on(completedTasks,'click',function(){
     activeList.style.display="none";
     completedList.style.display="block";
   })
 
+  // ['active', 'completed', 'delelted']
+
+  // function(type) {
+  //   obj.filter(function(t, kye) => {
+  //     if (t === type) return true;
+  //     return false;
+  //   })
+  // }
+
   //clear all completed tasks
   var clearCompleted=document.getElementById("clear-completed");
   clearCompleted.onclick=function(){
-    // var taskArr=getTask();
     for(var i=0;i<taskArr.length;i++){
-      while(taskArr[i].finish ==true){
+      if (taskArr[i].finish == true){
         taskArr.splice(i,1);
       }
     }
@@ -167,7 +179,6 @@ function showTasks(){
     activeList+="</ul>";
     completedList+="</ul>";
     taskList.innerHTML=activeList+completedList;
-
     //show the number of items left
     taskCount.innerHTML=taskArr.length;
 }
