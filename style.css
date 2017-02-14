@@ -5,6 +5,7 @@
 body{
     font-family: Microsoft YaHei;
     font-size:22px;
+    -moz-user-select:none;
 }
 a{
 	text-decoration: none;
@@ -66,18 +67,6 @@ header{
 #active-list li .check{
 	color:#339999;
 }
-/*#tasks li.check::before{
-	content: '';
-    position: absolute;
-    border-color: #339999;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 15px;
-    left: 10px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-}*/
 #task-control{
 	color:#ccc;
 	height:25px;
@@ -98,7 +87,6 @@ header{
 	float:left;
 	margin:0 10px;
 }
-
 .edit-task{
    right:60px; 
 }

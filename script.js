@@ -1,5 +1,5 @@
 // display tasks
-showTasks();
+renderTasks();
 var taskArr=getTask();
 console.log(taskArr);
 
@@ -14,7 +14,7 @@ document.getElementById("add-task-input").onkeydown=function(event){
     taskObj.finish=false;
     taskObj.content=content;
     addTask(taskObj);
-    showTasks();
+    renderTasks();
   }
 }
 
@@ -43,19 +43,16 @@ function addTask(taskObj){
   updateTask(taskArr);
 }
 
-//modify: bind() id
 //delete a task
-function deleteTask(e){
-  //get the task id of each task
-  var id=e.parentNode.getAttribute("taskId");
+function deleteTask(e,id){
 	for(var i=0;i<taskArr.length;i++){ 
-	  if(id == taskArr[i].id){     
+	  if(this.id == taskArr[i].id){     
 	    taskArr.splice(i,1);	
 	    break;   
 	  }
   }
   updateTask(taskArr);
-  showTasks();
+  renderTasks();
 }
 
 //edit a task when it is double clicked
@@ -67,112 +64,137 @@ function editTask(e){
   //if the new task content is null, the previous one remains
   editInputObj.onblur=function(){
     e.innerHTML=this.value?this.value:previousTaskContent;
+    for(var i=0;i<taskArr.length;i++){
+      if(taskArr[i].id == id){
+        taskArr[i].content=editInputObj.value;
+        break;
+      }
+    }
+    updateTask(taskArr); 
   }
   e.appendChild(editInputObj);
   editInputObj.focus();
   var id=e.parentNode.getAttribute("taskId");
-  for(var i=0;i<taskArr.length;i++){
-    if(taskArr[i].id == id){
-      taskArr[i].content=editInputObj.value;
-      break;
-    }
-  }
-  updateTask(taskArr);  
 }
 
 //change the state of item, depending on whether the item has completed or not
-//function clickCheckbox(e,id)
-function clickCheckbox(e){
-  // var taskId = id; 
-  var taskId=e.parentNode.getAttribute("taskId");
+function clickCheckbox(e,id){
+  var taskId = this.id; 
   for(var i=0;i<taskArr.length;i++){
 	if(taskArr[i].id == taskId){
 	  taskArr[i].finish=!taskArr[i].finish;	
 	}		 	   
 	    updateTask(taskArr);
-      showTasks();  
+      renderTasks();  
   }
 }
 
-//onclick event
-var obj={
-  on:function(element,type,handler){
-    if(element.addEventListener){
-      element.addEventListener(type,handler,false);
-    }else{
-      element.attachEvent('on'+type,handler);
-    }
-  }
-}
+// function filterItems(type) {
+//   return taskArr.filter(function(item, key) {
+//     if (item.finish === false) {
+//       return true;
+//     }
+//     return false;
+//   })
+// }
 
-//modify:filter()
-//show filter task lists
-function showFilterTaskList(){
-  var allTasks=document.getElementById('all-tasks');
-  var activeTasks=document.getElementById("active-tasks");
-  var completedTasks=document.getElementById("completed-tasks");
-  var activeList=document.getElementById("active-list");
-  var completedList=document.getElementById("completed-list");
-  //show all tasks
-  obj.on(allTasks,'click',function(){
-    showTasks();
-  })
-  //show active tasks
-  obj.on(activeTasks,'click',function(){
-    activeList.style.display="block";
-    completedList.style.display="none";
-  })
-  //show completed tasks
-  obj.on(completedTasks,'click',function(){
-    activeList.style.display="none";
-    completedList.style.display="block";
-  })
-
-  // ['active', 'completed', 'delelted']
-
-  // function(type) {
-  //   obj.filter(function(t, kye) => {
-  //     if (t === type) return true;
-  //     return false;
-  //   })
-  // }
-
-  //clear all completed tasks
-  var clearCompleted=document.getElementById("clear-completed");
-  clearCompleted.onclick=function(){
+function filterItems(type){
+  if(type === 'active'){
+    return taskArr.filter(function(item,key){
+      if(item.finish === false){
+        return true;
+      }
+      return false;
+    });
+  }else if(type === 'completed'){
+    return taskArr.filter(function(item,key){
+      if(item.finish === true){
+        return true;
+      }
+      return false;
+    })
+  }else if(type === 'all'){
+     return;
+  }else if(type === 'clearAllCompleted'){
     for(var i=0;i<taskArr.length;i++){
       if (taskArr[i].finish == true){
         taskArr.splice(i,1);
       }
     }
     updateTask(taskArr);
-    showTasks();
+    return;
   }
+}
+
+//show filter task lists
+function showFilterTaskList(){
+  var allTasks=getItemById('all-tasks');
+  var activeTasks=getItemById('active-tasks');
+  var clearCompleted=getItemById('clear-completed');
+  var completedTasks=getItemById('completed-tasks');
+  var activeLists=getItemById('active-list');
+  var completedList=getItemById('completed-list');
+
+  // allTasks.onclick = function(type, e) {
+  //   console.log('type : ', type);
+  //   var displayedItems = [];
+  //   if (type === 'delete') {
+  //     taskArr = [];
+  //   } else {
+  //     displayedItems = filterItems(type);
+  //   }
+  //   console.log('displayed items : ', displayedItems);
+  //   renderTasks(displayedItems);
+  // }.bind(this, 'all');
+
+  var callback=function(type,e){
+    var displayedItems=[];
+    displayedItems=filterItems(type);
+    renderTasks(displayedItems);
+  }
+  listener(allTasks,'click',callback.bind(this,'all'));
+  listener(activeTasks,'click',callback.bind(this,'active'));
+  listener(completedTasks,'click',callback.bind(this,'completed'));
+  listener(clearCompleted,'click',callback.bind(this,'clearAllCompleted'));
 }
 showFilterTaskList();
 
-//show all tasks on to-do list
-function showTasks(){
+
+//add color to filter buttons when they are clicked
+var sortTask=getItemById('sort-task');
+var sortControls=sortTask.getElementsByTagName('a');
+for(var i=0;i<sortControls.length;i++){
+  sortControls[i].index=i;   
+  sortControls[i].onclick=function(){
+    for(var j=0;j<sortControls.length;j++){
+      if(j == this.index){
+        sortControls[j].style.color="#339999";
+      }else{
+        sortControls[j].style.color="#ccc";
+      }
+    }
+  }
+}
+
+//render all tasks on to-do list
+// function renderTasks(val) {}
+function renderTasks(val){
   var taskList=document.getElementById('task-list');
   var taskCount=document.getElementById('task-count');
   var activeList= '<ul id="active-list">'
   var completedList='<ul id="completed-list">';
-  var taskArr=getTask();
+  var taskArr=val || getTask();
   var liContent;                      
   for(var i=0;i<taskArr.length;i++){
+    liContent='<li '+'taskId="' + taskArr[i].id + '" '+'class="task"'+'>'
+      +'<a '+'class="check"'+'id="'+taskArr[i].id+'"'+'onclick="clickCheckbox.call(this,id);"'+'>'+'O'+'</a>'
+      // +'<span class="task-content" ondblclick="editTask(this);">'+taskArr[i].content+'</span>'
+      +'<span '+'class="task-content"'+'ondblclick="editTask(this);"'+'id="'+taskArr[i].id+'"'+'>'+taskArr[i].content+'</span>'
+      +'<a '+'class="del-task"'+'id="'+taskArr[i].id+'"'+'onclick="deleteTask.call(this,id);"'+'>'+'del'+'</a>'
+      +'</li>';
     if(!taskArr[i].finish){
-      liContent='<li '+'taskId="' + taskArr[i].id + '" '+'class="task"'+'>'
-      +'<a class="check" onclick="clickCheckbox(this);">O</a>'
-      +'<span class="task-content" ondblclick="editTask(this);">'+taskArr[i].content+'</span>'
-      +'<a class="del-task" onclick="deleteTask(this);">'+'del'+'</a>'
-      +'</li>'; 
       activeList+=liContent;
     }else{
-      liContent='<li '+'taskId="' + taskArr[i].id + '" '+'class="task finished"'+'>'
-      +'<a class="check" onclick="clickCheckbox(this);">O</a>'
-      +'<span class="task-content" ondblclick="editTask(this);">'+taskArr[i].content+'</span>'
-      +'<a class="del-task" onclick="deleteTask(this);">'+'del'+'</a>'
-      +'</li>'; 
       completedList+=liContent;
     }
   }
@@ -181,4 +203,16 @@ function showTasks(){
     taskList.innerHTML=activeList+completedList;
     //show the number of items left
     taskCount.innerHTML=taskArr.length;
+}
+
+// function handleClick(e, type) {
+//   console.log('type : ', type);
+// }
+
+function listener(node,type,callback){
+  node.addEventListener(type,callback,false);
+}
+
+function getItemById(id) {
+  return document.getElementById(id);
 }
