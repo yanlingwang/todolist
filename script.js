@@ -114,7 +114,7 @@ function showFilterTaskList() {
       if (type === 'clearAllCompleted') {
         taskArr = displayedItems;
       }
-    };
+    }
     renderTasks(displayedItems);
   };
 
