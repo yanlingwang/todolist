@@ -1,3 +1,3 @@
 # todolist
-A to do list in JavaScript
+<p>A to do list in JavaScript</p>
 link: https://yanlingwang.github.io/todolist/
