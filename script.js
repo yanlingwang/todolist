@@ -1,7 +1,6 @@
 // display tasks
 renderTasks();
 var taskArr = getTask();
-console.log(taskArr);
 
 //keydown event
 getItemById("add-task-input").onkeydown = function(event) {
@@ -34,9 +33,9 @@ function updateTask(tasks) {
 
 //add a new task 
 function addTask(taskObj) {
-  if(taskArr.length === 0){
+  if(taskArr.length === 0) {
     taskObj.id = 0;
-  }else{
+  }else {
     taskObj.id = taskArr[taskArr.length-1].id+1;
   }
   taskArr.push(taskObj);
@@ -46,7 +45,7 @@ function addTask(taskObj) {
 //delete a task
 function deleteTask(e, id) {
 	for(var i = 0;i<taskArr.length;i++) { 
-	  if(this.id == taskArr[i].id){     
+	  if(this.id == taskArr[i].id) {     
 	    taskArr.splice(i,1);	
 	    break;   
 	  }
@@ -80,7 +79,7 @@ function editTask(e) {
 //change the state of item, depending on whether the item has completed or not
 function clickCheckbox(e, id) {
   var taskId = this.id; 
-  for(var i=0;i<taskArr.length;i++){
+  for(var i=0;i<taskArr.length;i++) {
 	if(taskArr[i].id == taskId) {
 	  taskArr[i].finish =! taskArr[i].finish;	
 	}		 	   
@@ -119,10 +118,10 @@ function showFilterTaskList() {
     renderTasks(displayedItems);
   };
 
-  listener(allTasks, 'click', callback.bind(this,'all'));
-  listener(activeTasks,'click',callback.bind(this,'active'));
-  listener(completedTasks,'click',callback.bind(this,'completed'));
-  listener(clearCompleted,'click',callback.bind(this,'clearAllCompleted'));
+  listener(allTasks, 'click', callback.bind(this, 'all'));
+  listener(activeTasks,'click',callback.bind(this, 'active'));
+  listener(completedTasks,'click',callback.bind(this, 'completed'));
+  listener(clearCompleted,'click',callback.bind(this, 'clearAllCompleted'));
 }
 showFilterTaskList();
 
@@ -133,9 +132,9 @@ for(var i = 0;i<sortControls.length;i++) {
   sortControls[i].index = i;   
   sortControls[i].onclick = function() {
     for(var j = 0;j<sortControls.length;j++) {
-      if(j == this.index){
+      if(j == this.index) {
         sortControls[j].style.color = "#339999";
-      }else{
+      }else {
         sortControls[j].style.color = "#ccc";
       }
     }
@@ -144,8 +143,8 @@ for(var i = 0;i<sortControls.length;i++) {
 
 //render all tasks on to-do list
 function renderTasks(val) {
-  var taskList = document.getElementById('task-list');
-  var taskCount = document.getElementById('task-count');
+  var taskList = getItemById('task-list');
+  var taskCount = getItemById('task-count');
   var activeList = '<ul id="active-list">'
   var completedList = '<ul id="completed-list">';
   var taskArr = val || getTask();

@@ -56,7 +56,6 @@ header{
 	position:absolute;
 	left:10px;
 	cursor:pointer;
-	/*color:#339999;*/
 }
 #completed-list li .check{
 	color:#ccc;
