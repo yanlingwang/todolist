@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+    <meta name="format-detection" content="telephone=no,address=no,email=no">
+    <title>申请制图-图聚智能</title>
+     <style>
+       h4{
+         line-height: 20px;
+         font-weight: normal;
+         margin-left: 20px;
+       }
+       span{
+         margin-right: 30px;
+       }
+     </style>
+  </head>
+  <body>
+     <h3>${}</h3>
+     <h4>订单号：${}</h4>
+     <h4>场所名：${}</h4>
+     <h4><span>用户名：${}</span><span>用户邮箱：${}</span><span>用户手机：${}</span></h4>
+     <h4>请打开以下链接下载用户资料地图，填写MAP ID、Floor ID、Building Name，上传Palmap Tool导出的图聚位图和xml文件完成后用户才能使用地图</h4>
+     <h4>${}</h4>
+     <script>
+        window.onload = function(){
+          getParams();
+        }
+        function getParams(){
+           var paramstr = window.location.search.substr(1);
+           console.log(paramstr);
+           paramList = paramstr.split("&");
+           if(paramList.length == 1){
+             
+           }
+        }
+     </script>
+  </body>
+</html>

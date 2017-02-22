@@ -1,0 +1,193 @@
+.ngr-mapview {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #eee
+}
+
+.ngr-mapview.row {
+  margin: 0
+}
+
+.ngr-mapview .ngr-widget-pane {
+  padding: 0
+}
+
+.ngr-container {
+  width: 100%;
+  height: 750px;
+  background-color: #eee
+}
+
+.ngr-popup-content-wrapper {
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(9,2,4,.35);
+  background-color: hsla(0,0%,100%,.95)
+}
+
+.ngr-popup-tip {
+  width: 12px;
+  height: 12px;
+  margin-top: -6px
+}
+
+.ngr-popup-tip-container {
+  height: 25px
+}
+
+.ngr-touch .ngr-bar,.ngr-touch .ngr-control-layers {
+  border: 0 none;
+  box-shadow: 0 1px 5px rgba(0,0,0,.3)
+}
+
+.ngr-bar a {
+  color: #9e9e9e
+}
+
+.ngr-bar a,.ngr-bar a:active,.ngr-bar a:focus,.ngr-bar a:hover {
+  border-bottom-color: #eee
+}
+
+.ngr-bar a:first-child {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px
+}
+
+.ngr-bar a:last-child {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px
+}
+
+.ngr-widget-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  max-width: 350px;
+  height: 100%;
+  box-shadow: 0 0 20px rgba(0,0,0,.3);
+  background-color: #fff;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease
+}
+
+.ngr-widget-pane.invisible {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  box-shadow: none
+}
+
+.ngr-widget-pane-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  background-color: #fff
+}
+
+.ngr-widget-pane-toggle {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  box-shadow: 0 1px 4px rgba(0,0,0,.3)
+}
+
+.ngr-widget-pane-toggle-button {
+  padding: 15px 5px;
+  color: #9e9e9e;
+  background-color: #fff;
+  cursor: pointer
+}
+
+.ngr-control-floor {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  background: #fff
+}
+
+.ngr-control-floor-selected {
+  display: block;
+  max-width: 120px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 8px;
+  text-align: center;
+  border-bottom: 1px solid transparent;
+  border-radius: 2px;
+  color: #9e9e9e;
+  cursor: pointer
+}
+
+.ngr-control-floor-selected:after {
+  content: "\E93A";
+  font-family: lnricons;
+  margin-left: 5px
+}
+
+.ngr-control-floor-list {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 300px;
+  overflow-y: scroll
+}
+
+.ngr-control-floor.active .ngr-control-floor-list,.ngr-control-floor:focus .ngr-control-floor-list,.ngr-control-floor:hover .ngr-control-floor-list {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all .25s ease-in-out;
+  transition: all .25s ease-in-out
+}
+
+.ngr-control-floor.active .ngr-control-floor-selected,.ngr-control-floor:focus .ngr-control-floor-selected,.ngr-control-floor:hover .ngr-control-floor-selected {
+  border-bottom-color: #eee;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+.ngr-control-floor.active .ngr-control-floor-selected:after,.ngr-control-floor:focus .ngr-control-floor-selected:after,.ngr-control-floor:hover .ngr-control-floor-selected:after {
+  content: "\E939"
+}
+
+.ngr-control-scale-line {
+  padding: 0;
+  border-color: #9e9e9e;
+  color: #616161;
+  background-color: none
+}
+
+
+.ngr-control-fullscreen-pseudo {
+  position: fixed!important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #fff
+}
+
+.ngr-bar.ngr-control a.selected {
+  color: #757575;
+  background-color: #eee
+}
+
+.ngr-fullscreen-on.ngr-container,.ngr-fullscreen-on .ngr-container,.ngr:-webkit-full-screen.ngr-container,.ngr:-webkit-full-screen .ngr-container {
+  height: 100%
+}
+
+.ngr-fullscreen-on.ngr-container,.ngr-fullscreen-on .ngr-container,.ngr:-moz-full-screen.ngr-container,.ngr:-moz-full-screen .ngr-container {
+  height: 100%
+}
+
+.ngr-fullscreen-on.ngr-container,.ngr-fullscreen-on .ngr-container,.ngr:-ms-fullscreen.ngr-container,.ngr:-ms-fullscreen .ngr-container {
+  height: 100%
+}
+
+.ngr-fullscreen-on.ngr-container,.ngr-fullscreen-on .ngr-container,.ngr:fullscreen.ngr-container,.ngr:fullscreen .ngr-container {
+  height: 100%
+}
