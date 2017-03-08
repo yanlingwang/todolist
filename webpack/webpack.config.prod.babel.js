@@ -19,7 +19,7 @@ module.exports = {
   entry: entries,
   context: path.join(__dirname, '..'),  
   output: {
-    path: 'build',
+    path: '/build',
     publicPath: '/',
     filename: isProd ? '[name].[hash].js' : '[name].js',
     chunkFilename: isProd ? '[name].[hash].js' : '[name].js'    

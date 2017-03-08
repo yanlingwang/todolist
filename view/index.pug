@@ -1,5 +1,5 @@
 doctype html
-html(lang="zh-cmn-Hans")
+html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width,minimum-scale=1,maximum-scale=1")
@@ -7,18 +7,30 @@ html(lang="zh-cmn-Hans")
     meta(name="apple-mobile-web-app-capable", content="yes")
     meta(name="apple-mobile-web-app-title", content="Palmap")
     title
-      | iPalmap室内地图开放平台 - 图聚智能
-    link(rel="stylesheet", href="https://ipalmap.com/statics/public/ngr/NGR.css")  
-    link(rel="stylesheet", href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css")
-    link(rel="stylesheet", href="https://ipalmap.com/statics/wall-e/latest/wall-e.min.css")
-  style.
-    #app {
-      background: #eee;
-    }
-  body
-    #map
-    script(src="https://downloads.ipalmap.com/sdks/js/latest/NGR.min.js")
-    script(src="./public/js/jquery.min.js")
-    script(src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js")
-    script(src="./public/js/page.js")
-    script(src="./public/js/ngr-control-fullscreen.js")
+      | To do list
+  body(onselectstart="return false")
+      header
+        h1 To Do List
+      div(id="main")
+        div(id="add-task")
+          input(type="text",id="add-task-input",placeholder="add new task here",style="width:100%;height:50px")
+        div(id="tasks")
+          ul(id="task-list")
+        div(id="task-control")
+          div(id="info")
+            span(id="task-count") 0 
+            span  items left
+          ul(id="filter-task")
+            li
+              a(id="all-tasks") All
+            li
+              a(id="active-tasks") Active
+            li
+              a(id="completed-tasks") Completed
+            li
+              a(id="clear-completed") Clear completed
+      footer
+      script(type="text/javascript",src="./app/helper.js")
+      script(type="text/javascript",src="./app/store.js")
+      script(type="text/javascript",src="./app/view.js")
+      script(type="text/javascript",src="./app/mark.js")

@@ -1,5 +1,5 @@
 {
-  "name": "web-tools",
+  "name": "todomvc-in-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "clean": "rimraf build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=development && webpack-dev-server --port 3000 --inline --hot --compress --config ./webpack/webpack.config.babel.js --progress --display-error-details",
-    "build": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.config.prod.babel.js --progress --display-error-details"
+    "build": "set NODE_ENV=production webpack --config ./webpack/webpack.config.prod.babel.js --progress --display-error-details"
   },
   "author": "Youchao Liu <liuyouchao111@gmail.com>",
   "license": "ISC",
